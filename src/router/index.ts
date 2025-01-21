@@ -39,6 +39,7 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
     } else {
       // TODO 权限判断
+      next()
     }
   } else {
     if (freeRoutes.indexOf(to.path) !== -1) {

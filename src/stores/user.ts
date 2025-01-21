@@ -7,19 +7,18 @@ export const useUserStore = defineStore('user', () => {
   const userInfo = ref()
 
   const asyncLogin = (userInfo) => {
-    login(userInfo).then((res: any) => {
-      const { token } = res
-
-      setToken(token)
+    login(userInfo).then((res) => {
+      setToken(res?.token)
+      router.push({ name: 'home' })
     })
   }
 
   const asyncGetUserInfo = () => {
-    getUserInfo().then((res) => {})
+    getUserInfo().then(() => {})
   }
 
   const asyncLogout = () => {
-    logout().then((res) => {
+    logout().then(() => {
       router.push('/login')
 
       clearToken()

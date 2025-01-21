@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/stores/user.ts'
+import { useUserStore } from '@/stores/user'
 import type { FormInstance } from 'element-plus'
 
 const { asyncLogin } = useUserStore()
@@ -56,9 +56,6 @@ const onSubmit = async () => {
     loading.value = true
 
     asyncLogin({ name: 'Jerry', password: 'admin' })
-
-    router.push({ name: 'home' })
-    ElMessage.success('登录成功')
   } catch (e) {
     ElMessage.error('请检查账号密码是否正确')
   } finally {

@@ -5,8 +5,6 @@
   </el-header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import TagsView from '../TagsView/index.vue'
 </script>
-
-<style lang="scss" scoped></style>

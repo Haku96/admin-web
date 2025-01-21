@@ -1,16 +1,14 @@
 <template>
-  <div class="common-layout">
+  <el-container>
+    <Sidebar></Sidebar>
     <el-container>
-      <Sidebar></Sidebar>
-      <el-container>
-        <Header></Header>
+      <Header></Header>
 
-        <Main> </Main>
+      <Main> </Main>
 
-        <el-footer>Footer</el-footer>
-      </el-container>
+      <el-footer height="48px">Footer</el-footer>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script lang="ts" setup>
@@ -22,8 +20,11 @@ import Main from './Main/index.vue'
 <style lang="scss" scoped>
 :deep(.el-main) {
   background-color: #fcfcfc;
+  min-height: calc(100vh - 130px);
+}
 
-  // TODO 重置最小高度
-  min-height: calc(100vh - 240px);
+:deep(.el-header) {
+  background-color: #ffffff;
+  height: 82px;
 }
 </style>
