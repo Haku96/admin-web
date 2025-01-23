@@ -1,7 +1,13 @@
 <template>
-  <div>历史记录</div>
+  <div class="tags-view-wrapper">历史记录</div>
 </template>
 
-<script setup></script>
+<script setup lang="ts"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tags-view-wrapper {
+  height: 34px;
+  display: flex;
+  align-items: center;
+}
+</style>

@@ -4,7 +4,7 @@
     <el-container>
       <Header></Header>
 
-      <Main> </Main>
+      <Main></Main>
 
       <el-footer height="48px">Footer</el-footer>
     </el-container>
@@ -19,7 +19,7 @@ import Main from './Main/index.vue'
 
 <style lang="scss" scoped>
 :deep(.el-main) {
-  background-color: #fcfcfc;
+  background-color: #f0f2f5;
   min-height: calc(100vh - 130px);
 }
 

@@ -30,8 +30,5 @@ export default defineConfig(({ command, mode }) => {
 
 ### 待办事项
 
-- [ ] 添加登录页面
 - [ ] 模式切换，黑夜白天
-- [ ] 图标组件
-- [ ] vite 对象形式配置与函数形式配置
 - [ ] apiFox 入门使用

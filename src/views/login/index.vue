@@ -29,13 +29,12 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/stores/user'
+import { useUserStore } from '@/stores'
 import type { FormInstance } from 'element-plus'
 
 const { asyncLogin } = useUserStore()
 const loginForm = ref<FormInstance>()
 const loading = ref(false)
-const router = useRouter()
 
 const form = reactive({
   email: '',
