@@ -8,13 +8,17 @@ export const useUserStore = defineStore('user', () => {
 
   const asyncLogin = (userInfo) => {
     login(userInfo).then((res) => {
+      // TODO res 响应类型
       setToken(res?.token)
       router.push({ name: 'home' })
     })
   }
 
-  const asyncGetUserInfo = () => {
-    getUserInfo().then(() => {})
+  // TODO 获取用户信息的时机
+  const asyncGetUserInfo = async () => {
+    const res = await getUserInfo()
+
+    userInfo.value = res.data
   }
 
   const asyncLogout = () => {

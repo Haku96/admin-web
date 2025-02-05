@@ -4,12 +4,9 @@
       <div>面包屑</div>
 
       <div>
-        <el-icon class="mx-3">
-          <FullScreen />
-        </el-icon>
-
-        <el-icon class="mx-3">
-          <Bell />
+        <el-icon class="mx-3" @click="handleFullScreenToggle">
+          <v-icon v-if="isFullScreen" name="ri:fullscreen-exit-line"></v-icon>
+          <FullScreen v-else />
         </el-icon>
 
         <span class="mx-3">
@@ -29,9 +26,23 @@
 <script setup lang="ts">
 import TagsView from '../TagsView/index.vue'
 import { useUserStore } from '@/stores'
-import { Bell, Setting, FullScreen } from '@element-plus/icons-vue'
+import { Setting, FullScreen } from '@element-plus/icons-vue'
 
+const isFullScreen = ref(false)
 const { asyncLogout } = useUserStore()
+
+const handleFullScreenToggle = () => {
+  const el = document.documentElement
+
+  // 全屏切换
+  if (!isFullScreen.value) {
+    el.requestFullscreen()
+    isFullScreen.value = true
+  } else {
+    document.exitFullscreen()
+    isFullScreen.value = false
+  }
+}
 
 const handleLogout = () => {
   asyncLogout()

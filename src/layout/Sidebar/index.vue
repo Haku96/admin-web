@@ -3,6 +3,7 @@
     <div class="icon-container">图标</div>
 
     <el-scrollbar height="calc(100vh - 88px)" class="pt-12">
+      <!-- TODO 权限菜单 -->
       <el-menu
         default-active="2"
         :collapse-transition="false"
@@ -59,7 +60,8 @@ const handleCollapseClick = () => {
 
 <style lang="scss" scoped>
 .el-aside {
-  border-right: solid 1px var(--el-menu-border-color);
+  // TODO 隐藏纵向滚动条
+  // border-right: solid 1px var(--el-menu-border-color);
   transition: width 0.3s;
 }
 
