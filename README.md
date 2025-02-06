@@ -7,6 +7,7 @@
 
 - ref 与 reactive 区别与实战指南，推荐首选 ref，[官方文档](https://cn.vuejs.org/guide/essentials/reactivity-fundamentals.html#declaring-reactive-state-1)
 - 在 Vite 项目中，import.meta.env 是用于在客户端代码中访问环境变量的方式，但它在 vite.config.ts 文件中无法直接使用。这是因为 vite.config.ts 是在构建过程中运行的，而 import.meta.env 是在客户端环境中才可用。
+- `@/assets/500.svg?component` svg 图片添加 `component` 后缀，表示将 svg 文件转换为 Vue 组件？
 
 ```js
 // vite.config.ts 中使用 import.meta.env
@@ -27,6 +28,10 @@ export default defineConfig(({ command, mode }) => {
   }
 })
 ```
+
+### 路由管理
+
+- 前端控制，由路由源数据中的 `roles` 控制，只保留二级菜单，菜单由路由源数据中的 `hidden` 控制
 
 ### 待办事项
 

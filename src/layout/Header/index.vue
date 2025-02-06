@@ -3,15 +3,13 @@
     <div class="nav-header">
       <div>面包屑</div>
 
-      <div>
+      <div class="flex items-center">
         <el-icon class="mx-3" @click="handleFullScreenToggle">
           <v-icon v-if="isFullScreen" name="ri:fullscreen-exit-line"></v-icon>
           <FullScreen v-else />
         </el-icon>
 
-        <span class="mx-3">
-          <el-avatar :size="22" src="https://avatars.githubusercontent.com/u/44761321" />
-        </span>
+        <span class="mx-3">Jerry</span>
 
         <el-icon class="mx-3" @click="handleLogout">
           <Setting />

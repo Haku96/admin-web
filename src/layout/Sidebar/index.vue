@@ -3,34 +3,29 @@
     <div class="icon-container">图标</div>
 
     <el-scrollbar height="calc(100vh - 88px)" class="pt-12">
-      <!-- TODO 权限菜单 -->
       <el-menu
         default-active="2"
         :collapse-transition="false"
         class="el-menu-wrapper"
         :collapse="isCollapse"
+        unique-opened
         close-on-click-outside
       >
-        <el-sub-menu index="1">
+        <el-sub-menu v-for="item in menu" :index="item.meta.title" :key="item.meta.title">
           <template #title>
-            <el-icon><location /></el-icon>
-            <span>Navigator One</span>
+            <v-icon class="mr-2" :name="item.meta.icon"></v-icon>
+            <span>{{ item.meta.title }}</span>
           </template>
-          <el-menu-item index="2">
-            <el-icon><icon-menu /></el-icon>
-            <template #title>Navigator Two</template>
+
+          <el-menu-item
+            v-for="menuItem in item.children"
+            :key="menuItem.meta.title"
+            :index="menuItem.meta.title"
+            @click="handleMenuItemClick(menuItem)"
+          >
+            <template #title>{{ menuItem.meta.title }}</template>
           </el-menu-item>
         </el-sub-menu>
-
-        <el-menu-item index="2">
-          <el-icon><icon-menu /></el-icon>
-          <template #title>Navigator Two</template>
-        </el-menu-item>
-
-        <el-menu-item index="4">
-          <el-icon><setting /></el-icon>
-          <template #title>Navigator Four</template>
-        </el-menu-item>
       </el-menu>
     </el-scrollbar>
 
@@ -42,8 +37,10 @@
 </template>
 
 <script setup lang="ts">
-import { Menu as IconMenu, Location, Setting, Expand, Fold } from '@element-plus/icons-vue'
+import { filterRouteMenu } from '@/router/utils'
+import { Expand, Fold } from '@element-plus/icons-vue'
 
+const router = useRouter()
 const isCollapse = ref(false)
 const menuWidth = ref('200px')
 
@@ -56,6 +53,13 @@ const handleCollapseClick = () => {
     menuWidth.value = '200px'
   }
 }
+
+const handleMenuItemClick = (e) => {
+  // TODO 根据不同网址跳转，系统内，系统外，iframe 等
+  router.push({ name: e.name })
+}
+
+const menu = reactive(filterRouteMenu())
 </script>
 
 <style lang="scss" scoped>

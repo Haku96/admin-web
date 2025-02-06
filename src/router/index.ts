@@ -11,17 +11,97 @@ export const routes = [
     path: '/login',
     name: 'login',
     component: Login,
+    meta: {
+      hidden: true,
+    },
   },
   {
     path: '/',
     component: Layout,
+    meta: {
+      icon: 'ri:home-3-line',
+      title: '首页',
+    },
+    redirect: '/home',
     children: [
       {
         path: '/home',
         name: 'home',
+        meta: {
+          title: '门户页',
+        },
         component: () => import('@/views/home/index.vue'),
       },
     ],
+  },
+  {
+    path: '/components',
+    component: Layout,
+    redirect: '/components/form',
+    meta: {
+      icon: 'ri:command-line',
+      title: '组件',
+      hidden: false,
+      target: 'blank',
+      keepAlive: true,
+    },
+    children: [
+      {
+        path: '/components/form',
+        name: 'formComponent',
+        component: () => import('@/views/components/form/index.vue'),
+        meta: { title: '表单组件' },
+      },
+    ],
+  },
+  {
+    path: '/error',
+    redirect: '/error/403',
+    component: Layout,
+    meta: {
+      hidden: true,
+    },
+    children: [
+      {
+        path: '/error/403',
+        name: '403',
+        component: () => import('@/views/error/403.vue'),
+      },
+      {
+        path: '/error/404',
+        name: '404',
+        meta: { hidden: true },
+        component: () => import('@/views/error/404.vue'),
+      },
+      {
+        path: '/error/500',
+        name: '500',
+        component: () => import('@/views/error/500.vue'),
+      },
+    ],
+  },
+  {
+    path: '/redirect',
+    component: Layout,
+    meta: {
+      hidden: true,
+    },
+    children: [
+      {
+        path: '/redirect/:path(.*)',
+        name: 'redirect',
+        component: () => import('@/layout/ReDirect.vue'),
+      },
+    ],
+  },
+
+  {
+    path: '/:pathMatch(.*)',
+    name: 'pathMatch',
+    redirect: '/error/404',
+    meta: {
+      hidden: true,
+    },
   },
 ]
 

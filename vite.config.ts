@@ -10,6 +10,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueRouter from 'unplugin-vue-router/vite'
+import svgLoader from 'vite-svg-loader'
 
 export default defineConfig({
   plugins: [
@@ -17,6 +18,7 @@ export default defineConfig({
     vueJsx(),
     vueDevTools(),
     VueRouter(),
+    svgLoader(),
     AutoImport({
       imports: [
         'vue',
