@@ -57,12 +57,12 @@
     "vue-tsc": "^2.1.10"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
+    "pre-commit": "npx lint-staged",
+    "post-commit": "npm run push-after-commit"
   },
   "lint-staged": {
     "*": [
-      "prettier --write src/",
-      "eslint --fix"
+      "prettier --write src/"
     ]
   }
 }
