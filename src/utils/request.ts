@@ -1,3 +1,4 @@
+import { ElMessage } from 'element-plus'
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosResponse } from 'axios'
 
 const service: AxiosInstance = axios.create({
@@ -23,6 +24,7 @@ service.interceptors.response.use(
     return response.data
   },
   (error) => {
+    ElMessage.error('服务器错误，请咨询管理员')
     return Promise.reject(error)
   },
 )

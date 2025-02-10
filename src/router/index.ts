@@ -1,3 +1,4 @@
+import { freeRoutes } from '@/utils/constant'
 import { createRouter, createWebHistory } from 'vue-router'
 import { isLogin } from '@/utils/auth.js'
 import Login from '@/views/login/index.vue'
@@ -51,6 +52,7 @@ export const routes = [
         name: 'formComponent',
         component: () => import('@/views/components/form/index.vue'),
         meta: { title: '表单组件' },
+        // meta: { title: '表单组件', roles: ['admin'] },
       },
     ],
   },
@@ -114,7 +116,6 @@ const router = createRouter({
 
 NProgress.configure({ showSpinner: false })
 
-const freeRoutes = ['/login', '/home']
 router.beforeEach((to, from, next) => {
   NProgress.start()
 
@@ -123,6 +124,13 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
     } else {
       // TODO 权限判断
+      if (to.meta && to.meta.roles) {
+        // @ts-expect-error 忽略类型检查
+        if (!to.meta.roles.some((role: string) => [].includes(role))) {
+          next(`/error/404`)
+        }
+      }
+
       next()
     }
   } else {

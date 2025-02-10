@@ -11,21 +11,7 @@
         unique-opened
         close-on-click-outside
       >
-        <el-sub-menu v-for="item in menu" :index="item.meta.title" :key="item.meta.title">
-          <template #title>
-            <v-icon class="mr-2" :name="item.meta.icon"></v-icon>
-            <span>{{ item.meta.title }}</span>
-          </template>
-
-          <el-menu-item
-            v-for="menuItem in item.children"
-            :key="menuItem.meta.title"
-            :index="menuItem.meta.title"
-            @click="handleMenuItemClick(menuItem)"
-          >
-            <template #title>{{ menuItem.meta.title }}</template>
-          </el-menu-item>
-        </el-sub-menu>
+        <menuItem v-for="item in menu" :key="item.meta.title" :menu="item"></menuItem>
       </el-menu>
     </el-scrollbar>
 
@@ -37,29 +23,14 @@
 </template>
 
 <script setup lang="ts">
-import { filterRouteMenu } from '@/router/utils'
+import menuItem from './menu-item'
 import { Expand, Fold } from '@element-plus/icons-vue'
+import { storeToRefs } from 'pinia'
+import { useAppStore } from '@/stores'
 
-const router = useRouter()
-const isCollapse = ref(false)
-const menuWidth = ref('200px')
-
-const handleCollapseClick = () => {
-  isCollapse.value = !isCollapse.value
-
-  if (isCollapse.value) {
-    menuWidth.value = '64px'
-  } else {
-    menuWidth.value = '200px'
-  }
-}
-
-const handleMenuItemClick = (e) => {
-  // TODO 根据不同网址跳转，系统内，系统外，iframe 等
-  router.push({ name: e.name })
-}
-
-const menu = reactive(filterRouteMenu())
+const appStore = useAppStore()
+const { handleCollapseClick } = useAppStore()
+const { menu, isCollapse, menuWidth } = storeToRefs(appStore)
 </script>
 
 <style lang="scss" scoped>
