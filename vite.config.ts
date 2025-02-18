@@ -1,52 +1,58 @@
-import { fileURLToPath, URL } from 'node:url'
+import {
+  root,
+  alias,
+  wrapperEnv,
+  pathResolve,
+  __APP_INFO__
+} from "./build/utils";
+import { getPluginsList } from "./build/plugins";
+import { include, exclude } from "./build/optimize";
+import { type UserConfigExport, type ConfigEnv, loadEnv } from "vite";
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import vueDevTools from 'vite-plugin-vue-devtools'
 
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import { VueRouterAutoImports } from 'unplugin-vue-router'
-import VueRouter from 'unplugin-vue-router/vite'
-import svgLoader from 'vite-svg-loader'
-
-export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    vueDevTools(),
-    VueRouter(),
-    svgLoader(),
-    AutoImport({
-      imports: [
-        'vue',
-        VueRouterAutoImports,
-        {
-          'vue-router/auto': ['useLink'],
-        },
-      ],
-      dts: true,
-      dirs: ['./src/composables'],
-      vueTemplate: true,
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      dts: true,
-      resolvers: [ElementPlusResolver()],
-    }),
-  ],
-
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+export default ({ mode }: ConfigEnv): UserConfigExport => {
+  const { VITE_CDN, VITE_PORT, VITE_COMPRESSION, VITE_PUBLIC_PATH } =
+    wrapperEnv(loadEnv(mode, root));
+  return {
+    base: VITE_PUBLIC_PATH,
+    root,
+    resolve: {
+      alias
     },
-  },
+    server: {
+      port: VITE_PORT,
+      host: "0.0.0.0",
 
-  server: {
-    host: '0.0.0.0',
-    port: 8080,
-    open: true,
-  },
-})
+      proxy: {},
+      warmup: {
+        clientFiles: ["./index.html", "./src/{views,components}/*"]
+      }
+    },
+    plugins: getPluginsList(VITE_CDN, VITE_COMPRESSION),
+    optimizeDeps: {
+      include,
+      exclude
+    },
+    build: {
+      target: "es2015",
+      sourcemap: false,
+      chunkSizeWarningLimit: 4000,
+      rollupOptions: {
+        input: {
+          index: pathResolve("./index.html", import.meta.url)
+        },
+
+        // 静态资源分类打包
+        output: {
+          chunkFileNames: "static/js/[name]-[hash].js",
+          entryFileNames: "static/js/[name]-[hash].js",
+          assetFileNames: "static/[ext]/[name]-[hash].[ext]"
+        }
+      }
+    },
+    define: {
+      __INTLIFY_PROD_DEVTOOLS__: false,
+      __APP_INFO__: JSON.stringify(__APP_INFO__)
+    }
+  };
+};
