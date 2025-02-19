@@ -1,0 +1,21 @@
+{
+  "vue 页面模板": {
+    "scope": "vue",
+    "prefix": "Vue3.3+",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "defineOptions({",
+      "  name: \"\"",
+      "});",
+      "</script>",
+      "",
+      "<template>",
+      "  <div>占位符</div>",
+      "</template>",
+      "",
+      "<style lang=\"scss\" scoped></style>",
+      ""
+    ],
+    "description": "vue 页面模板"
+  }
+}

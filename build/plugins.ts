@@ -10,6 +10,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 import removeConsole from "vite-plugin-remove-console";
 import { codeInspectorPlugin } from "code-inspector-plugin";
 import { vitePluginFakeServer } from "vite-plugin-fake-server";
+import AutoImport from "unplugin-auto-import/vite";
 
 export function getPluginsList(
   VITE_CDN: boolean,
@@ -43,6 +44,10 @@ export function getPluginsList(
       include: "mock",
       infixName: false,
       enableProd: true
+    }),
+    AutoImport({
+      imports: ["vue", "vue-router", "pinia"],
+      dts: "src/auto-imports.d.ts"
     }),
     // svg组件化支持
     svgLoader(),

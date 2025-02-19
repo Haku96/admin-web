@@ -103,7 +103,4 @@ class StorageProxy implements ProxyStorage {
   }
 }
 
-/**
- * 二次封装 [localforage](https://localforage.docschina.org/) 支持设置过期时间，提供完整的类型提示
- */
 export const localForage = () => new StorageProxy(forage);
